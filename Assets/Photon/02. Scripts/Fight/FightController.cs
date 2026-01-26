@@ -1,0 +1,52 @@
+using System.Collections;
+using StarterAssets;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class FightController : MonoBehaviour
+{
+    private ThirdPersonController controller;
+    private Animator anim;
+
+    public GameObject punchHitbox, kickHitbox;
+
+    void Start()
+    {
+        controller = GetComponent<ThirdPersonController>();
+        anim = GetComponent<Animator>();
+    }
+    
+    void OnPunch(InputValue value)
+    {
+        StartCoroutine(PunchRoutine());
+    }
+
+    IEnumerator PunchRoutine()
+    {
+        controller.enabled = false;
+        anim.SetTrigger("Punch");
+        yield return new WaitForSeconds(0.5f);
+        punchHitbox.SetActive(true);
+        
+        yield return new WaitForSeconds(0.3f);
+        punchHitbox.SetActive(false);
+        controller.enabled = true;
+    }
+
+    void OnKick(InputValue value)
+    {
+        StartCoroutine(KickRoutine());
+    }
+
+    IEnumerator KickRoutine()
+    {
+        controller.enabled = false;
+        anim.SetTrigger("Kick");
+        yield return new WaitForSeconds(0.6f);
+        kickHitbox.SetActive(true);
+        
+        yield return new WaitForSeconds(0.2f);
+        kickHitbox.SetActive(false);
+        controller.enabled = true;
+    }
+}
