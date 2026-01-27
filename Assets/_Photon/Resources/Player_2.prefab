@@ -1140,6 +1140,7 @@ GameObject:
   - component: {fileID: 3261257716398143037}
   - component: {fileID: 9003040920473466148}
   - component: {fileID: 7230811112985729677}
+  - component: {fileID: 4628749098105181423}
   - component: {fileID: 4193609866575747179}
   - component: {fileID: -3101037880445697588}
   - component: {fileID: 2715513105747784685}
@@ -1409,6 +1410,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchHitbox: {fileID: 5334304249985473510}
   kickHitbox: {fileID: 2553679313094095970}
+--- !u!114 &4628749098105181423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572242773784110080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f508498bd84c28a7da4a1e3837c7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
 --- !u!114 &4193609866575747179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1850,6 +1864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3829918951006506658}
   - component: {fileID: 2411973686428185248}
+  - component: {fileID: 4566426447336209187}
   m_Layer: 8
   m_Name: '[Hitbox] Kick'
   m_TagString: Untagged
@@ -1893,6 +1908,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4566426447336209187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553679313094095970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 30
 --- !u!1 &2765790455488689630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,6 +3425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79625077601254727}
   - component: {fileID: 7052191548714790831}
+  - component: {fileID: 8269397266068999686}
   m_Layer: 8
   m_Name: '[Hitbox] Punch'
   m_TagString: Untagged
@@ -3440,6 +3469,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8269397266068999686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5334304249985473510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 10
 --- !u!1 &5355298167584508582
 GameObject:
   m_ObjectHideFlags: 0

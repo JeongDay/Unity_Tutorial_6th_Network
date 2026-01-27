@@ -2792,6 +2792,7 @@ GameObject:
   - component: {fileID: 2427079872016673449}
   - component: {fileID: 6516294727930857836}
   - component: {fileID: 7685755735154867520}
+  - component: {fileID: -4403063974179471657}
   - component: {fileID: -466940920779684698}
   - component: {fileID: 3087419680524837215}
   - component: {fileID: 8069827997798000944}
@@ -3061,6 +3062,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchHitbox: {fileID: 6006476242572073619}
   kickHitbox: {fileID: 7719871263148477211}
+--- !u!114 &-4403063974179471657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900496411050040711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f508498bd84c28a7da4a1e3837c7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
 --- !u!114 &-466940920779684698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3137,6 +3151,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Kick
+  - Type: 9
+    SynchronizeType: 0
+    Name: Death
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -4197,6 +4214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7397620855467391204}
   - component: {fileID: 4658826839662764182}
+  - component: {fileID: 1811338089715538572}
   m_Layer: 8
   m_Name: '[Hitbox] Punch'
   m_TagString: Untagged
@@ -4240,6 +4258,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1811338089715538572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006476242572073619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 10
 --- !u!1 &6039327708365648661
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,6 +5285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7221697220408946781}
   - component: {fileID: 7010986437127255781}
+  - component: {fileID: 4680973121000597690}
   m_Layer: 8
   m_Name: '[Hitbox] Kick'
   m_TagString: Untagged
@@ -5297,6 +5329,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4680973121000597690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7719871263148477211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 30
 --- !u!1 &7861284557831364000
 GameObject:
   m_ObjectHideFlags: 0

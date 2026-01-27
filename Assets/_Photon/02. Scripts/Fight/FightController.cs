@@ -49,4 +49,10 @@ public class FightController : MonoBehaviour
         kickHitbox.SetActive(false);
         controller.enabled = true;
     }
+
+    public void SetDeath()
+    {
+        controller.enabled = false;
+        this.enabled = false;
+    }
 }

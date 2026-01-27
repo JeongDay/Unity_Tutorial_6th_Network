@@ -2340,6 +2340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3332813232913989623}
   - component: {fileID: 1258069510054452120}
+  - component: {fileID: 6018819134400101100}
   m_Layer: 8
   m_Name: '[Hitbox] Kick'
   m_TagString: Untagged
@@ -2383,6 +2384,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6018819134400101100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153250438791456779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 30
 --- !u!1 &4184376120369331665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7754070316471375692}
   - component: {fileID: 1939909100727051835}
+  - component: {fileID: 2712607680618585171}
   m_Layer: 8
   m_Name: '[Hitbox] Punch'
   m_TagString: Untagged
@@ -2727,6 +2742,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2712607680618585171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633171578522946208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f729ea91148d19ba33f483410460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 10
 --- !u!1 &4904962304262818344
 GameObject:
   m_ObjectHideFlags: 0
@@ -3806,6 +3834,7 @@ GameObject:
   - component: {fileID: 8687791723706124751}
   - component: {fileID: 6231874886703653763}
   - component: {fileID: 8872719300283535083}
+  - component: {fileID: -6900937822634128405}
   - component: {fileID: 8495358203482509411}
   - component: {fileID: -3540017308685417540}
   - component: {fileID: -802102636177861996}
@@ -4075,6 +4104,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchHitbox: {fileID: 4633171578522946208}
   kickHitbox: {fileID: 4153250438791456779}
+--- !u!114 &-6900937822634128405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625193438778622566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f508498bd84c28a7da4a1e3837c7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
 --- !u!114 &8495358203482509411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4151,6 +4193,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Kick
+  - Type: 9
+    SynchronizeType: 0
+    Name: Death
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
