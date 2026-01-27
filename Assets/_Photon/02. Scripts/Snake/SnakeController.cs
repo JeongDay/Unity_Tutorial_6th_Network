@@ -22,9 +22,6 @@ public class SnakeController : MonoBehaviourPun
 
     void Start()
     {
-        if (coinTransform == null)
-            coinTransform = FindFirstObjectByType<Coin>().transform;
-
         headRenderer = GetComponent<MeshRenderer>();
 
         if (photonView.IsMine)
