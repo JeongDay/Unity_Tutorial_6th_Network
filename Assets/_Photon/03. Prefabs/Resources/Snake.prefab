@@ -357,7 +357,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tailPrefab: {fileID: 8542242433507512870, guid: afa0279a0be9b78479471210baf526ff, type: 3}
-  tailPoints: []
   coinTransform: {fileID: 0}
   moveSpeed: 3.5
   turnSpeed: 120

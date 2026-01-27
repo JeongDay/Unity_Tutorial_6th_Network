@@ -1,9 +1,11 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 public class Tail : MonoBehaviour
 {
     private SnakeController mySnake;
+    private PhotonView myPV;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -11,16 +13,23 @@ public class Tail : MonoBehaviour
         SnakeController otherSnake = other.GetComponent<SnakeController>();
         if (otherSnake != null && mySnake != null)
         {
-            if (otherSnake != mySnake)
+            if (otherSnake != mySnake && myPV.IsMine)
             {
-                otherSnake.enabled = false;
-                Debug.Log($"{otherSnake}를 잡았습니다.");
+                PhotonView otherPV = otherSnake.GetComponent<PhotonView>();
+                otherPV.RPC("Death", RpcTarget.AllBufferedViaServer);
+                
+                int otherTailCount = otherSnake.GetTailCount();
+                for (int i = 0; i < otherTailCount; i++)
+                    myPV.RPC("AddTail", RpcTarget.AllBufferedViaServer);
+
+                Debug.Log($"뱀을 잡았습니다. 획득 꼬리 개수 : {otherTailCount}");
             }
         }
     }
 
-    public void SetSnake(SnakeController snake)
+    public void SetSnake(SnakeController snake, PhotonView pv)
     {
         mySnake = snake;
+        myPV = pv;
     }
 }

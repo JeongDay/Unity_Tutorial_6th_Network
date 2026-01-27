@@ -8,9 +8,10 @@ using Random = UnityEngine.Random;
 public class SnakeController : MonoBehaviourPun
 {
     public GameObject tailPrefab;
-    public List<Transform> tailPoints = new List<Transform>();
+    private List<Transform> tailPoints = new List<Transform>();
 
     public Transform coinTransform;
+    private MeshRenderer headRenderer;
 
     private Vector3 moveInput;
     public float moveSpeed = 5f;
@@ -21,7 +22,15 @@ public class SnakeController : MonoBehaviourPun
 
     void Start()
     {
-        coinTransform = GameObject.FindGameObjectWithTag("Coin").transform;
+        if (coinTransform == null)
+            coinTransform = FindFirstObjectByType<Coin>().transform;
+
+        headRenderer = GetComponent<MeshRenderer>();
+
+        if (photonView.IsMine)
+            headRenderer.material.color = Color.green;
+        else
+            headRenderer.material.color = Color.red;
     }
 
     void Update()
@@ -71,6 +80,7 @@ public class SnakeController : MonoBehaviourPun
         }
     }
 
+    [PunRPC]
     private void AddTail()
     {
         Vector3 spawnPosition = transform.position;
@@ -80,7 +90,14 @@ public class SnakeController : MonoBehaviourPun
         GameObject newTail = Instantiate(tailPrefab, spawnPosition, Quaternion.identity);
         tailPoints.Add(newTail.transform);
 
-        newTail.GetComponent<Tail>().SetSnake(this);
+        newTail.GetComponent<Tail>().SetSnake(this, photonView); // 생성한 꼬리에 내 정보 저장
+        
+        MeshRenderer tailRenderer = newTail.GetComponent<MeshRenderer>();
+        
+        if (photonView.IsMine)
+            tailRenderer.material.color = Color.green;
+        else
+            tailRenderer.material.color = Color.red;
     }
 
     [PunRPC]
@@ -105,5 +122,22 @@ public class SnakeController : MonoBehaviourPun
             isCoin = false;
 
         AddTail();
+    }
+
+    [PunRPC]
+    public void Death()
+    {
+        GetComponent<Collider>().enabled = false;
+        headRenderer.material.color = Color.grey;
+        
+        foreach (var tail in tailPoints)
+            tail.gameObject.SetActive(false);
+        
+        this.enabled = false;
+    }
+
+    public int GetTailCount()
+    {
+        return tailPoints.Count;
     }
 }
