@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿ using Unity.Netcode;
+ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -12,7 +13,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : NetworkBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -78,6 +79,7 @@ namespace StarterAssets
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
+        private float _netCameraYaw; // y축
 
         // player
         private float _speed;
@@ -156,14 +158,44 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if (IsOwner)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                
+                MoveServerRpc(_input.move, _input.jump, _input.sprint, _cinemachineTargetYaw);
+            }
+            else
+            {
+                if (IsServer)
+                {
+                    JumpAndGravity();
+                    GroundedCheck();
+                    Move();
+                }
+            }
         }
 
         private void LateUpdate()
         {
             CameraRotation();
+        }
+
+        [ServerRpc]
+        private void MoveServerRpc(Vector2 moveInput, bool jumpInput, bool spriteInput, float cameraYaw)
+        {
+            _input.move = moveInput;
+            _input.jump = jumpInput;
+            _input.sprint = spriteInput;
+            _netCameraYaw = cameraYaw;
+
+            if (!IsHost)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
         }
 
         private void AssignAnimationIDs()
@@ -255,12 +287,9 @@ namespace StarterAssets
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
+                // _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _netCameraYaw;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 

@@ -8,6 +8,7 @@ public class NPCController : MonoBehaviour
     private NavMeshAgent agent;
 
     public float wanderRadius = 50f;
+    private bool isDead = false;
 
     void Start()
     {
@@ -17,6 +18,18 @@ public class NPCController : MonoBehaviour
         anim.SetFloat("MotionSpeed", 1); // 애니메이션 재생 속도 <- 사용자 입력으로 동작하는 상태가 아니라서 수동으로 입력
 
         StartCoroutine(MovingRoutine());
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isDead)
+            return;
+
+        var hitbox = other.GetComponent<Hitbox>();
+        if (hitbox != null)
+        {
+            GetHit();
+        }
     }
 
     IEnumerator MovingRoutine()
@@ -44,5 +57,15 @@ public class NPCController : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomDir, out hit, wanderRadius, NavMesh.AllAreas))
             agent.SetDestination(hit.position);
+    }
+    
+    private void GetHit()
+    {
+        isDead = true;
+        anim.SetTrigger("Death");
+        agent.isStopped = true;
+        agent.ResetPath();
+        agent.speed = 0f;
+        StopAllCoroutines();
     }
 }
