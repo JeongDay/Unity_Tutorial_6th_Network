@@ -1,8 +1,9 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCController : MonoBehaviour
+public class NPCController : NetworkBehaviour
 {
     private Animator anim;
     private NavMeshAgent agent;
@@ -28,6 +29,11 @@ public class NPCController : MonoBehaviour
         var hitbox = other.GetComponent<Hitbox>();
         if (hitbox != null)
         {
+            NetworkObject otherUser = other.transform.root.GetComponent<NetworkObject>();
+            string otherID = otherUser.OwnerClientId.ToString();
+            
+            LogManager.Instance.SetLogMessage(otherID, "NPC", false);
+            
             GetHit();
         }
     }

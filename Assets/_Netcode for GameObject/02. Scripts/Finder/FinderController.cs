@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NUnit.Framework;
 using StarterAssets;
 using Unity.Cinemachine;
 using Unity.Netcode;
@@ -55,18 +56,31 @@ public class FinderController : NetworkBehaviour
         var hitbox = other.GetComponent<Hitbox>();
         if (hitbox != null)
         {
+            NetworkObject otherUser = other.transform.root.GetComponent<NetworkObject>();
+            string otherID = otherUser.OwnerClientId.ToString();
+            string myID = OwnerClientId.ToString();
+            
+            LogManager.Instance.SetLogMessage(otherID, myID, true);
+            
             GetHit();
         }
     }
 
     void OnPunch(InputValue value)
     {
-        anim.SetTrigger("Punch");
+        if (IsOwner)
+            PunchServerRpc();
+    }
+
+    [ServerRpc]
+    private void PunchServerRpc()
+    {
         StartCoroutine(PunchRoutine());
     }
 
     IEnumerator PunchRoutine()
     {
+        anim.SetTrigger("Punch");
         yield return new WaitForSeconds(0.5f);
         punchHitbox.SetActive(true);
 
@@ -76,12 +90,19 @@ public class FinderController : NetworkBehaviour
 
     void OnKick(InputValue value)
     {
-        anim.SetTrigger("Kick");
+        if (IsOwner)
+            KickServerRpc();
+    }
+    
+    [ServerRpc]
+    private void KickServerRpc()
+    {
         StartCoroutine(KickRoutine());
     }
 
     IEnumerator KickRoutine()
     {
+        anim.SetTrigger("Kick");
         yield return new WaitForSeconds(0.6f);
         kickHitbox.SetActive(true);
 

@@ -1,16 +1,44 @@
+using TMPro;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class LogManager : MonoBehaviour
+public class LogManager : NetworkBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static LogManager Instance;
+
+    public TextMeshProUGUI logText;
+
+    private NetworkVariable<FixedString128Bytes> logMessage = new NetworkVariable<FixedString128Bytes>();
+
+    private string prevMsg;
+
+    void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnNetworkSpawn()
     {
-        
+        base.OnNetworkSpawn();
+
+        logMessage.OnValueChanged += SetLog;
+    }
+
+    public void SetLogMessage(string kill, string death, bool isUser)
+    {
+        string color = isUser ? "red" : "grey";
+        string msg = $"<color={color}>\n{kill} 님이 {death} 님을 처치하였습니다.</color>";
+
+        if (prevMsg == msg)
+            msg += " ";
+
+        prevMsg = msg;
+        logMessage.Value = msg;
+    }
+
+    private void SetLog(FixedString128Bytes prevValue, FixedString128Bytes newValue)
+    {
+        logText.text += newValue;
     }
 }
