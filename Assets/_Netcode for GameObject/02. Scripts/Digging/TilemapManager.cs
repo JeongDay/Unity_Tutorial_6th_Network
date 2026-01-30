@@ -2,17 +2,26 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TilemapManager : MonoBehaviour
+public class TilemapManager : NetworkBehaviour
 {
     public Tilemap tilemap;
 
     public GameObject[] minerals;
 
-    void Start()
-    {
-        tilemap = GetComponent<Tilemap>();
-    }
+    private NetworkList<Vector3Int> destroyedTiles = new NetworkList<Vector3Int>();
     
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        
+        tilemap = GetComponent<Tilemap>();
+
+        destroyedTiles.OnListChanged += OnTileDestroyed;
+
+        foreach (Vector3Int pos in destroyedTiles)
+            tilemap.SetTile(pos, null);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void RemoveTileServerRpc(Vector3Int cellPos)
     {
@@ -30,7 +39,13 @@ public class TilemapManager : MonoBehaviour
 
             mineral.GetComponent<NetworkObject>().Spawn(); // 동기화
         }
-        
-        tilemap.SetTile(cellPos, null);
+
+        destroyedTiles.Add(cellPos);
+    }
+
+    private void OnTileDestroyed(NetworkListEvent<Vector3Int> changedEvent)
+    {
+        if (changedEvent.Type == NetworkListEvent<Vector3Int>.EventType.Add)
+            tilemap.SetTile(changedEvent.Value, null);
     }
 }

@@ -851,7 +851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b70b7831a14a0ab1818de55df85fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   offset: {x: 0, y: -2.5, z: -10}
 --- !u!1 &757362196
 GameObject:
@@ -985,6 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1011348104}
+  - component: {fileID: 1011348105}
   - component: {fileID: 1011348103}
   m_Layer: 0
   m_Name: Score Manager
@@ -1005,6 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e92e45ba8654e51a0a371a269fe8dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   scoreText: {fileID: 1043844554}
 --- !u!4 &1011348104
 Transform:
@@ -1021,6 +1022,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1011348105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011348102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4209479145
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &1043844552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,6 +1196,7 @@ GameObject:
   - component: {fileID: 1396072059}
   - component: {fileID: 1396072058}
   - component: {fileID: 1396072057}
+  - component: {fileID: 1396072062}
   - component: {fileID: 1396072061}
   m_Layer: 9
   m_Name: Tilemap
@@ -10238,6 +10265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606b86ac451e4aa49240ade2ec273205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   tilemap: {fileID: 1396072060}
   minerals:
   - {fileID: 863230133866507139, guid: a97936d071b1d3345a0cdb063fd5661e, type: 3}
@@ -10245,6 +10273,31 @@ MonoBehaviour:
   - {fileID: 5644550903779198729, guid: 477c465f01d36d64c9b3198d1cdc00a6, type: 3}
   - {fileID: 3183683523170336701, guid: 34cb4bc7875475a44a8eac6424cbbc0f, type: 3}
   - {fileID: 2524925451962145112, guid: 725ba5fd09ecbd6428100c0ca8c206f9, type: 3}
+--- !u!114 &1396072062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396072055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3398609343
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &1558944795
 GameObject:
   m_ObjectHideFlags: 0

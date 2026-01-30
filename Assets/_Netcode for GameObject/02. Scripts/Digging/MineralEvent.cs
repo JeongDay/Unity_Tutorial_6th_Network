@@ -3,15 +3,15 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MineralEvent : MonoBehaviour
+public class MineralEvent : NetworkBehaviour
 {
     public ScoreManager scoreManager;
     private bool isDrop = false;
-    
+
     IEnumerator Start()
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
-        
+
         isDrop = false;
         yield return new WaitForSeconds(1f);
 
@@ -23,8 +23,14 @@ public class MineralEvent : MonoBehaviour
         if (other.CompareTag("Player") && isDrop)
         {
             Debug.Log("광물 획득");
-            scoreManager.AddScore();
-            gameObject.SetActive(false);
+            GetMineralServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void GetMineralServerRpc()
+    {
+        scoreManager.AddScore();
+        GetComponent<NetworkObject>().Despawn(true);
     }
 }
