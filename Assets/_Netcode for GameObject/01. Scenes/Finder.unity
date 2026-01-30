@@ -2487,8 +2487,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2041082160}
-  - component: {fileID: 2041082159}
   - component: {fileID: 2041082161}
+  - component: {fileID: 2041082159}
   m_Layer: 0
   m_Name: Log Manager
   m_TagString: Untagged
